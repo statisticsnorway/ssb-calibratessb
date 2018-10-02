@@ -96,8 +96,12 @@ lagVekter = function(
 }
 
 
-setTotal = function(total,lmObject)
+setTotalOld = function(total,lmObject)
 {
+  setTotal0 <- get0("setTotalFromCalibrateSSBuser", ifnotfound = FALSE) # Hack som gjør det mulig å bytte ut ...
+  if(is.function(setTotal0)){
+    return(setTotal0(total,lmObject))
+  }
   x   = model.matrix(lmObject)[1,]
   x[1:length(x)] = NA
   varnames = names(total)[names(total) %in% names(x)]
@@ -107,8 +111,12 @@ setTotal = function(total,lmObject)
 }
 
 
-getTotal = function(data,lmObject,w=NULL)
-{
+getTotalOld = function(data,lmObject,w=NULL)
+{ 
+  getTotal0 <- get0("getTotalFromCalibrateSSBuser", ifnotfound = FALSE) # Hack som gjør det mulig å bytte ut ...
+  if(is.function(getTotal0)){
+    return(getTotal0(data,lmObject,w))
+  }
   x=model.frame(lmObject)
   x1=dim(x)[1]
   x2=dim(x)[2]

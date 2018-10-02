@@ -81,6 +81,7 @@ d=PanelEstimation(bWide,numerator="unemployed",denominator="workforce",linComb=l
 cbind(tot=d$estimates,se=sqrt(d$varEstimates))
 cbind(tot=d$linCombs,se=sqrt(d$varLinCombs))
 
+\dontrun{
 # Calibration when som population totals unknown (edu)
 # Leverages in output (will be used to adjust residuals)
 # Cluster robust estimation (families/famid)
@@ -90,6 +91,7 @@ b2 = CalibrateSSB(z,popData=zPop,calmodel="~ edu*sex + sex*age",
 b2Wide = WideFromCalibrate(b2,CrossStrata(z[,c("year","q")]),z$id,extra=z$famid)
 d2 = PanelEstimation(b2Wide,"unemployed",linComb=lc,group=1,estType = "robustModelGroup")
 cbind(tot=d2$linCombs,se=sqrt(d2$varLinCombs))
+}
 
 
 # Yearly mean before ratio calculation (linComb0)

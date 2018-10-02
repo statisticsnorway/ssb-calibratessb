@@ -17,14 +17,6 @@ CalibratePackageReGenesees = function(netSample,calmodel=NULL,popTotals=NULL,y=N
     stop("The package ReGenesees, is needed.")
   }
   
-  if(FALSE){
-  e.svydesign   <- eval(parse(text="ReGenesees::e.svydesign"))
-  pop.template  <- eval(parse(text="ReGenesees::pop.template"))
-  fill.template <- eval(parse(text="ReGenesees::fill.template"))
-  e.calibrate   <- eval(parse(text="ReGenesees::e.calibrate"))
-  get.residuals <- eval(parse(text="ReGenesees::get.residuals"))
-  svystatTM     <- eval(parse(text="ReGenesees::svystatTM"))
-  }
   
   desReGenesees <- e.svydesign(netSample,ids=asFormula(ids), weights =asFormula(samplingWeights))
   

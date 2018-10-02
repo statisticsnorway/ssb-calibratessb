@@ -12,7 +12,8 @@ CalibrateSSB(grossSample, calmodel = NULL, response = "R",
   onlyTotals = FALSE, onlyw = FALSE, uselRegWeights = FALSE, ids = NULL,
   residOutput = TRUE, leverageOutput = FALSE, yOutput = TRUE,
   samplingWeightsOutput = FALSE, dropResid2 = TRUE, wGrossOutput = TRUE,
-  wave = NULL, id = NULL, extra = NULL, ...)
+  wave = NULL, id = NULL, extra = NULL, allowNApopTotals = NULL,
+  partitionPrint = NULL, ...)
 }
 \arguments{
 \item{grossSample}{Data frame.}
@@ -81,6 +82,12 @@ popTotals.}
 \item{id}{Identifier variable (to be included in output).}
 
 \item{extra}{Variables for the extra dataset (to be included in output).}
+
+\item{allowNApopTotals}{When TRUE missing population totals are allowed.
+Results in error when FALSE and warning when NULL.}
+
+\item{partitionPrint}{When TRUE partition progress is printed. 
+Automatic decision when NULL (about 1 min total computing time).}
 
 \item{...}{Further arguments sent to underlying functions.}
 }

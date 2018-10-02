@@ -19,10 +19,6 @@ and ratios are calculated from this covariance matrix. The linear
 combinations and ratios can involve variables within and/or between sample
 waves. \cr
 }
-\details{
-\tabular{ll}{ Package: \tab CalibrateSSB\cr Type: \tab Package\cr Version:
-\tab 1.05\cr Date: \tab 2018-07-04\cr License: \tab GPL-2 \cr }
-}
 \references{
 Langsrud, Ø (2016): \dQuote{A variance estimation R-package for
 repeated surveys - useful for estimates of changes in quarterly and annual
@@ -32,10 +28,5 @@ Official Statistics}, Bucharest, Romania, 7-8 April. \cr
 
 Särndal, C.-E. and Lundström, S. (2005): \emph{Estimation in Surveys with
 Nonresponse}, John Wiley and Sons, New York.
-}
-\author{
-Øyvind Langsrud
-
-Maintainer: Øyvind Langsrud \email{oyl@ssb.no}
 }
 \keyword{calibration}

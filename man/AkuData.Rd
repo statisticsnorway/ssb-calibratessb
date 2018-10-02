@@ -2,7 +2,6 @@
 % Please edit documentation in R/AkuData.R
 \name{AkuData}
 \alias{AkuData}
-\alias{testDataBasis}
 \title{Generate test data}
 \usage{
 AkuData(n)

@@ -62,7 +62,10 @@
 #' @param wave Time or another repeat variable (to be included in output).
 #' @param id Identifier variable (to be included in output).
 #' @param extra Variables for the extra dataset (to be included in output).
-#' 
+#' @param allowNApopTotals When TRUE missing population totals are allowed.
+#' Results in error when FALSE and warning when NULL.
+#' @param partitionPrint When TRUE partition progress is printed. 
+#' Automatic decision when NULL (about 1 min total computing time).  
 #' 
 #' @param ... Further arguments sent to underlying functions.
 #' @return Unless onlyTotals or onlyw is TRUE, the output is an object of class calSSB. That is, a list with 
@@ -80,7 +83,7 @@
 #' @export
 #' @importFrom methods formalArgs
 #' @importFrom stats aggregate as.formula binomial glm lm lm.influence model.frame model.matrix predict resid update weights
-#' @importFrom utils head tail
+#' @importFrom utils head tail capture.output
 #' @importFrom survey svydesign calibrate
 #' 
 #' @seealso \code{\link{CalSSBobj}}, \code{\link{WideFromCalibrate}},  \code{\link{PanelEstimation}}, \code{\link{CalibrateSSBpanel}}.
@@ -132,9 +135,18 @@ CalibrateSSB = function(grossSample,calmodel=NULL,response="R",popTotals=NULL,y=
                         wave=NULL,
                         id=NULL,
                         extra=NULL,
+                        allowNApopTotals = NULL,
+                        partitionPrint = NULL,
                         ...){
   #if(hasArg("residOutput"))
   #  warning("residOutput is an old argument not in use")
+  timeLimit = 60
+  if(!is.null(allowNApopTotals)){
+    checkAnyNApopTotals = !allowNApopTotals
+  } else{
+    checkAnyNApopTotals = TRUE
+  }
+    
   if(leverageOutput) residOutput = TRUE
   if(is.null(y)) residOutput = FALSE
   if(residOutput & is.list(y)) stop("residOutput & is.list(y) NOT IMPLEMENTED")
@@ -243,9 +255,28 @@ CalibrateSSB = function(grossSample,calmodel=NULL,response="R",popTotals=NULL,y=
       etos = etos_e1_e2_by_lm
     }
   }
+  
+  if(is.null(partitionPrint))
+    pPrint = TRUE
+  else
+    pPrint = partitionPrint
+  
+  if(nBig<=1)
+    pPrint = FALSE
+  
+  if(pPrint)
+    printi = capture.output(print(bigStrataLevels,row.names=FALSE))
 
+  
   for(i in 1:nBig)
   {
+    if(i==1 & pPrint){
+      if(is.null(partitionPrint)){
+        timeStart = Sys.time()
+      } else {
+        cat(printi[1],"\n")
+      }
+    }
     rows    = bigStrata  ==i
     lm_model = lm(c(calModel,as.formula(paste(response,"~1")))[[1]],data=grossSample[rows,])   # ~1 when calModel=NULL
 
@@ -269,6 +300,15 @@ CalibrateSSB = function(grossSample,calmodel=NULL,response="R",popTotals=NULL,y=
     popTotals = rbind(popTotals,popTotals_)
 
 
+    if(checkAnyNApopTotals){
+      if(anyNA(popTotals[dim(popTotals)[1],])){
+        if(!is.null(allowNApopTotals))
+          stop("Missing population totals not allowed according to parameter allowNApopTotals.")
+        else
+          warning("Special methodology since missing population totals (warning according to parameter allowNApopTotals)")
+        checkAnyNApopTotals = FALSE
+      }
+    }
 
     if(!onlyTotals & !(tolower(usePackage)=="nocalibration")){
       a = calibrateSSB(grossSample[rows,],calModel, popTotals[dim(popTotals)[1],],response=NULL,lRegModel,
@@ -293,6 +333,16 @@ CalibrateSSB = function(grossSample,calmodel=NULL,response="R",popTotals=NULL,y=
         h2[rowsNetto]=e1_e2$h2
       }
     }
+    
+    if(i==1 & pPrint & is.null(partitionPrint)){
+      if(difftime(Sys.time(),timeStart,units = "secs")>timeLimit/nBig)
+        cat(printi[1],"\n")
+      else
+        pPrint = FALSE
+    }
+    if(pPrint)
+      cat(printi[1+i],"\n")
+    
 
   }
   if(wGrossOutput) if(sum(is.finite(wGross))==0) wGross = NULL

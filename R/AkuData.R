@@ -3,7 +3,6 @@
 #' Generate test data of eight quarters
 #' 
 #' 
-#' @aliases AkuData testDataBasis
 #' @param n Number of observations within each quarter.
 #' @return A data frame with the following variables: \item{id}{Sample unit
 #' identifier} \item{year}{Year} \item{q}{Quarter} \item{month}{Month}
@@ -62,3 +61,27 @@ pkgEnvAkuData <- new.env(parent=emptyenv())
 getTestDataBasis <- function() {
   pkgEnvAkuData[["testDataBasis"]]
 }
+
+
+
+
+
+#' testDataBasis
+#' 
+#' Data used by \code{\link{AkuData}}
+#' 
+#' @name testDataBasis
+#' @docType data
+#' @keywords datasets internal
+NULL
+
+
+
+
+
+
+
+
+
+
+

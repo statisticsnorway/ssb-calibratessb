@@ -33,7 +33,11 @@ calibratePackageSurvey = function(grossSample,modelformula,popTotals=NULL,respon
     col1[1] = FALSE     # Antar Intercept nr 1 og denne tas bort
     varNames1 = colnames(xFromModel)[col1] # Variabler der totaler finnes
     modelformula1 = update(modelformula,paste("~ ",paste(varNames1,collapse="+")))
-    calWeights1 = weights(calibrate(netDesign,modelformula1 ,popTotals[!is.na(popTotals)],calfun=calfun,...))
+    calWeights1 = try(weights(calibrate(netDesign,modelformula1 ,popTotals[!is.na(popTotals)],calfun=calfun,...)),silent=FALSE)
+    if(class(calWeights1)[1]=="try-error")
+      stop ("The function calibrate in package survey did not succeed. Maybe change the parameter usePackage?")
+    
+    
     popTotals[is.na(popTotals)] =  colSums(calWeights1*xFromModel[,is.na(popTotals)])
   }
 
@@ -42,7 +46,13 @@ calibratePackageSurvey = function(grossSample,modelformula,popTotals=NULL,respon
   netDesign = svydesign(ids=~1,data=grossSample[rFromModel==1,],weights=samplingWeights[rFromModel==1])
 
   calWeights = rep(0,dim(grossSample)[1])
-  calWeights[rFromModel==1] = weights(calibrate(netDesign,modelformula ,popTotals,calfun=calfun,...))
+  survey_weights = try(weights(calibrate(netDesign,modelformula ,popTotals,calfun=calfun,...)),silent=FALSE)
+  
+  if(class(survey_weights)[1]=="try-error")
+    stop ("The function calibrate in package survey did not succeed. Maybe change the parameter usePackage?")
+  
+  calWeights[rFromModel==1] = survey_weights 
+  
   if(returnwGross){
     return(list(w=calWeights,wGross=calWeights1))
   }
