@@ -4,7 +4,8 @@
 \alias{print.calSSBwide}
 \title{Print method for calSSBwide}
 \usage{
-\method{print}{calSSBwide}(x, digits = max(getOption("digits") - 3, 3), ...)
+\method{print}{calSSBwide}(x, digits = max(getOption("digits") - 3, 3),
+  ...)
 }
 \arguments{
 \item{x}{calSSBwide object}

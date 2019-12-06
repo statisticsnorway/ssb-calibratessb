@@ -6,9 +6,6 @@
 \alias{PeriodDiff}
 \alias{Period}
 \alias{LagDiff}
-\alias{LagDiff}
-\alias{Period}
-\alias{PeriodDiff}
 \title{Creation of linear combination matrices}
 \usage{
 LinCombMatrix(n, period = NULL, lag = NULL, k = 0, takeMean = TRUE,

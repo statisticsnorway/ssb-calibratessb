@@ -4,9 +4,10 @@
 \alias{CalSSBobj}
 \title{Create or modify a CalSSB object}
 \usage{
-CalSSBobj(x = NULL, y = NULL, w = NULL, wGross = NULL, resids = NULL,
-  resids2 = NULL, leverages = NULL, leverages2 = NULL,
-  samplingWeights = NULL, extra = NULL, id = NULL, wave = NULL)
+CalSSBobj(x = NULL, y = NULL, w = NULL, wGross = NULL,
+  resids = NULL, resids2 = NULL, leverages = NULL,
+  leverages2 = NULL, samplingWeights = NULL, extra = NULL,
+  id = NULL, wave = NULL)
 }
 \arguments{
 \item{x}{NULL or an  existing calSSB object}

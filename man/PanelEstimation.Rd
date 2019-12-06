@@ -4,9 +4,10 @@
 \alias{PanelEstimation}
 \title{Variance estimation for panel data}
 \usage{
-PanelEstimation(x, numerator, denominator = NULL, linComb = matrix(0, 0, n),
-  linComb0 = NULL, estType = "robustModel", leveragePower = 1/2,
-  group = NULL, returnCov = FALSE, usewGross = TRUE)
+PanelEstimation(x, numerator, denominator = NULL, linComb = matrix(0,
+  0, n), linComb0 = NULL, estType = "robustModel",
+  leveragePower = 1/2, group = NULL, returnCov = FALSE,
+  usewGross = TRUE)
 }
 \arguments{
 \item{x}{Output from wideFromCalibrate.}

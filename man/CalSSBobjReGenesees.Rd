@@ -4,8 +4,8 @@
 \alias{CalSSBobjReGenesees}
 \title{Create a CalSSB object from a ReGenesees/cal.analytic object}
 \usage{
-CalSSBobjReGenesees(x, y, samplingWeights = NULL, extra = NULL, id = NULL,
-  wave = NULL)
+CalSSBobjReGenesees(x, y, samplingWeights = NULL, extra = NULL,
+  id = NULL, wave = NULL)
 }
 \arguments{
 \item{x}{Output from ReGenesees::e.calibrate() (object of class cal.analytic)}

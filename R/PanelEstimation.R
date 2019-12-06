@@ -83,7 +83,7 @@
 #' @export PanelEstimation
 PanelEstimation = function(x,numerator,denominator=NULL,linComb=matrix(0,0,n),linComb0=NULL,
                       estType="robustModel",leveragePower=1/2,group=NULL,returnCov=FALSE,usewGross=TRUE){
-  if(class(x$w)=="NULL"){
+  if(class(x$w)[1]=="NULL"){
     z = vector("list",length(x))
     names(z) = names(x)
     n = dim(ListCbind(x[[1]]$y,numerator))[2]

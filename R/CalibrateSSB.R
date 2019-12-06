@@ -312,7 +312,7 @@ CalibrateSSB = function(grossSample,calmodel=NULL,response="R",popTotals=NULL,y=
 
     if(!onlyTotals & !(tolower(usePackage)=="nocalibration")){
       a = calibrateSSB(grossSample[rows,],calModel, popTotals[dim(popTotals)[1],],response=NULL,lRegModel,
-                              popData=NULL,samplingW[rows],tolower(usePackage)=="survey",bounds=bounds,calfun="linear",
+                              popData=NULL,samplingW[rows],tolower(usePackage)=="survey",bounds=bounds,calfun= calfun, ##### "linear",
                               totalReturn=0,uselRegWeights=uselRegWeights,...)
       w[rows] = a$w
       if(wGrossOutput & !is.null(a$wGross))  wGross[rows] = a$wGross
@@ -494,7 +494,7 @@ CrossStrata = function(by,sep = "-",returnb=FALSE,asNumeric=FALSE,byExtra=NULL){
 #' # See examples in PanelEstimation and CalSSBobj
 #' 
 WideFromCalibrate = function(a,wave=NULL,id=NULL,subSet=NULL,extra=NULL){    # wave instead of bigStrata, extra is list
-  if(class(a) != "calSSB")
+  if(class(a)[1] != "calSSB")
     stop("a must be an object of class calSSB")
   if(is.null(wave))
     wave = a$wave
@@ -655,7 +655,7 @@ sum_ = function(x) sum(x,na.rm=TRUE)
 
 asFormula = function(s) {
   if(is.null(s)) return(NULL)
-  if(class(s)=="formula") return(s)
+  if(class(s)[1]=="formula") return(s)
   if(is.na(s)[1]) return(NULL)
   as.formula(paste("~",paste(s,collapse="+"),sep=""))
 }

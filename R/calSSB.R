@@ -126,7 +126,7 @@ CalSSBobj <- function(x=NULL,y=NULL,w=NULL,wGross=NULL,resids=NULL,resids2=NULL,
       return(CalSSBobjReGenesees(x,
         y=y,samplingWeights=samplingWeights,extra=extra,id=id,wave=wave))
     }
-    if(class(x) != "calSSB")
+    if(class(x)[1] != "calSSB")
       stop("x must be an object of class calSSB")
     n = attr(x,"n")
     nY = attr(x,"nY")
@@ -233,12 +233,12 @@ CalSSBobjReGenesees <- function(x,y, samplingWeights=NULL,extra=NULL,
         } 
   }
   if(!is.null(samplingWeights))
-    if(class(samplingWeights)=="formula" | (is.character(samplingWeights) & length(samplingWeights)==1 ))
+    if(class(samplingWeights)[1]=="formula" | (is.character(samplingWeights) & length(samplingWeights)==1 ))
       samplingWeights = model.frame(asFormula(samplingWeights), data=x$variables)[,]
   z$samplingWeights = samplingWeights
   
   if(!is.null(extra))
-    if(class(extra)=="formula" | (is.character(extra) & length(extra)<min(dim(x$variables)) ))
+    if(class(extra)[1]=="formula" | (is.character(extra) & length(extra)<min(dim(x$variables)) ))
       extra = model.frame(asFormula(extra), data=x$variables)    
   z$extra = extra
     
@@ -251,12 +251,12 @@ CalSSBobjReGenesees <- function(x,y, samplingWeights=NULL,extra=NULL,
     }
   
   if(!is.null(id))
-    if(class(id)=="formula" | (is.character(id) & length(id)==1))
+    if(class(id)[1]=="formula" | (is.character(id) & length(id)==1))
       id = model.frame(asFormula(id), data=x$variables)[,]    
   z$id = id
   
   if(!is.null(wave))
-      if(class(wave)=="formula" | (is.character(wave) & length(wave)<min(dim(x$variables)) ))
+      if(class(wave)[1]=="formula" | (is.character(wave) & length(wave)<min(dim(x$variables)) ))
         wave = model.frame(asFormula(wave), data=x$variables)[,]
   if(NCOL(wave)==1)
     z$wave = wave

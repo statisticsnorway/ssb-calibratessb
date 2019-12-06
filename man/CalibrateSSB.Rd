@@ -9,11 +9,11 @@ CalibrateSSB(grossSample, calmodel = NULL, response = "R",
   popTotals = NULL, y = NULL, by = NULL, partition = NULL,
   lRegmodel = NULL, popData = NULL, samplingWeights = NULL,
   usePackage = "survey", bounds = c(-Inf, Inf), calfun = "linear",
-  onlyTotals = FALSE, onlyw = FALSE, uselRegWeights = FALSE, ids = NULL,
-  residOutput = TRUE, leverageOutput = FALSE, yOutput = TRUE,
-  samplingWeightsOutput = FALSE, dropResid2 = TRUE, wGrossOutput = TRUE,
-  wave = NULL, id = NULL, extra = NULL, allowNApopTotals = NULL,
-  partitionPrint = NULL, ...)
+  onlyTotals = FALSE, onlyw = FALSE, uselRegWeights = FALSE,
+  ids = NULL, residOutput = TRUE, leverageOutput = FALSE,
+  yOutput = TRUE, samplingWeightsOutput = FALSE, dropResid2 = TRUE,
+  wGrossOutput = TRUE, wave = NULL, id = NULL, extra = NULL,
+  allowNApopTotals = NULL, partitionPrint = NULL, ...)
 }
 \arguments{
 \item{grossSample}{Data frame.}
