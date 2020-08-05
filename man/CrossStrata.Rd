@@ -4,8 +4,7 @@
 \alias{CrossStrata}
 \title{Crossing several factor variables}
 \usage{
-CrossStrata(by, sep = "-", returnb = FALSE, asNumeric = FALSE,
-  byExtra = NULL)
+CrossStrata(by, sep = "-", returnb = FALSE, asNumeric = FALSE, byExtra = NULL)
 }
 \arguments{
 \item{by}{Dataframe or matrix with several variables}

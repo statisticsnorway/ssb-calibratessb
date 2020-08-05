@@ -8,16 +8,36 @@
 \alias{LagDiff}
 \title{Creation of linear combination matrices}
 \usage{
-LinCombMatrix(n, period = NULL, lag = NULL, k = 0, takeMean = TRUE,
-  removerows = TRUE, overlap = FALSE)
+LinCombMatrix(
+  n,
+  period = NULL,
+  lag = NULL,
+  k = 0,
+  takeMean = TRUE,
+  removerows = TRUE,
+  overlap = FALSE
+)
 
 LagDiff(n, lag = 1, removerows = TRUE)
 
-Period(n, period = 1, k = 0, takeMean = TRUE, removerows = TRUE,
-  overlap = FALSE)
+Period(
+  n,
+  period = 1,
+  k = 0,
+  takeMean = TRUE,
+  removerows = TRUE,
+  overlap = FALSE
+)
 
-PeriodDiff(n, period = 1, lag = period, k = 0, takeMean = TRUE,
-  removerows = TRUE, overlap = FALSE)
+PeriodDiff(
+  n,
+  period = 1,
+  lag = period,
+  k = 0,
+  takeMean = TRUE,
+  removerows = TRUE,
+  overlap = FALSE
+)
 }
 \arguments{
 \item{n}{Number of variables}

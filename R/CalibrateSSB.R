@@ -159,7 +159,7 @@ CalibrateSSB = function(grossSample,calmodel=NULL,response="R",popTotals=NULL,y=
     samplingWeights = "Wei5652503017"
     grossSample[,samplingWeights] = 1
     samplingW = NULL
-  } else samplingW = grossSample[,samplingWeights]
+  } else samplingW = grossSample[[samplingWeights]]
 
   if(is.null(popData)){
     popData = grossSample
@@ -404,9 +404,9 @@ CalibrateSSB = function(grossSample,calmodel=NULL,response="R",popTotals=NULL,y=
     if(length(wave)>1)
       retur$wave = CrossStrata(grossSample[,wave])
     else
-      retur$wave = grossSample[,wave]
+      retur$wave = grossSample[,wave, drop=TRUE]
   }
-  if(!is.null(id)) retur$id = grossSample[,id]
+  if(!is.null(id)) retur$id = grossSample[,id, drop=TRUE]
   if(!is.null(extra)) retur$extra = grossSample[,extra,drop=FALSE]
   if(!residOutput | !yOutput)
     return(retur)
@@ -604,7 +604,14 @@ uniqueCol= function(x,useRev=FALSE){
   x[,uniqueIndex(colnames(x),useRev),drop=FALSE]
 }
 
-sortrows = function(m,cols=1:dim(m)[2],index.return=FALSE)
+sortrows <- function(m, cols = 1:dim(m)[2], index.return = FALSE) {
+  ix <- eval(parse(text = paste("order(", paste("m[[", cols, "]]", sep = "", collapse = ","),  ")")))
+  if (index.return) 
+    return(ix)
+  m[ix, , drop = FALSE]
+}
+
+sortrowsOld = function(m,cols=1:dim(m)[2],index.return=FALSE)
 {
   ix=eval(parse(text=paste("order(",paste("m[,",cols,"]",sep="", collapse=","),")")))
   if(index.return) return(ix)
@@ -612,10 +619,30 @@ sortrows = function(m,cols=1:dim(m)[2],index.return=FALSE)
 }
 
 
-MYestTM = function(grossSample,y,w,by){
+MYestTMold = function(grossSample,y,w,by){
   if(!is.null(by)) if(is.na(by[1])) by = NULL
   estTM =aggregate(grossSample[,y]*w,grossSample[,by,drop=FALSE],sum_)
   if(!is.null(by)) estTM = sortrows(estTM,1:length(by))
+  if(length(y)==1) names(estTM)[length(names(estTM))] = y
+  estTM
+}
+
+MYestTM = function(grossSample,y,w,by){
+  if(!is.null(by)) if(is.na(by[1])) by = NULL
+  #grossSample <<- grossSample
+  #w <<- w
+  #y <<- y
+  #estTM =aggregate(grossSample[,y, drop = TRUE]*w,grossSample[,by,drop=FALSE],sum_)
+  
+  
+  if(!is.null(by)){
+    #cat("#")
+    estTM = sortrows(aggregate(grossSample[,y, drop = TRUE]*w,grossSample[,by,drop=FALSE],sum_),1:length(by))
+  } else {
+    #cat("0")
+    estTM =aggregate(grossSample[,y, drop = TRUE]*w,grossSample[,integer(0),drop=FALSE],sum_)
+  }
+  
   if(length(y)==1) names(estTM)[length(names(estTM))] = y
   estTM
 }

@@ -4,8 +4,7 @@
 \alias{WideFromCalibrate}
 \title{Rearrange output from CalibrateSSB (calSSB object). Ready for input to PanelEstimation.}
 \usage{
-WideFromCalibrate(a, wave = NULL, id = NULL, subSet = NULL,
-  extra = NULL)
+WideFromCalibrate(a, wave = NULL, id = NULL, subSet = NULL, extra = NULL)
 }
 \arguments{
 \item{a}{A calSSB object. That is, output from CalibrateSSB() or CalSSBobj().}
