@@ -11,6 +11,6 @@ Suggests: ReGenesees, testthat (>= 2.1.0)
 Description: Functions to calculate weights, estimates of changes and corresponding variance estimates for panel data with non-response. Partially overlapping samples are handled. Initially, weights are calculated by linear calibration. By default, the survey package is used for this purpose. It is also possible to use ReGenesees, which can be installed from <https://github.com/DiegoZardetto/ReGenesees>. Variances of linear combinations (changes and averages) and ratios are calculated from a covariance matrix based on residuals according to the calibration model. The methodology was presented at the conference, The Use of R in Official Statistics, and is described in Langsrud (2016) <http://www.revistadestatistica.ro/wp-content/uploads/2016/06/RRS2_2016_A021.pdf>.  
 License: GPL-2
 Encoding: UTF-8
-URL: https://github.com/statisticsnorway/ssb-calibratessb
+URL: https://github.com/statisticsnorway/ssb-calibratessb, https://statisticsnorway.github.io/ssb-calibratessb/
 BugReports: https://github.com/statisticsnorway/ssb-calibratessb/issues
 Config/roxygen2/version: 8.0.0
