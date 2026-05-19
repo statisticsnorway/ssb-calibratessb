@@ -29,4 +29,12 @@ Official Statistics}, Bucharest, Romania, 7-8 April. \cr
 Särndal, C.-E. and Lundström, S. (2005): \emph{Estimation in Surveys with
 Nonresponse}, John Wiley and Sons, New York.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/statisticsnorway/CalibrateSSB}
+  \item Report bugs at \url{https://github.com/statisticsnorway/CalibrateSSB/issues}
+}
+
+}
 \keyword{calibration}
