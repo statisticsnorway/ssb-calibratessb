@@ -8,8 +8,6 @@ OrderedVarNames(x, sep = ":")
 }
 \arguments{
 \item{x}{input}
-
-\item{sep}{}
 }
 \value{
 output

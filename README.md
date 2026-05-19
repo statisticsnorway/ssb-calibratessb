@@ -5,7 +5,7 @@ Weighting and Estimation for Panel Data with Non-Response
 
 ```r
 library(devtools)                               # Load package containing install_github
-install_github("statisticsnorway/CalibrateSSB") # Install CalibrateSSB from GitHub
+install_github("statisticsnorway/ssb-calibratessb") # Install CalibrateSSB from GitHub
 library(CalibrateSSB)                           # Load CalibrateSSB
 ?CalibrateSSB                                   # Help documentation of function CalibrateSSB
 ?PanelEstimation                                # Help documentation of function PanelEstimation
