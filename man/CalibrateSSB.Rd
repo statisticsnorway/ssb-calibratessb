@@ -34,6 +34,9 @@ CalibrateSSB(
   extra = NULL,
   allowNApopTotals = NULL,
   partitionPrint = NULL,
+  ginvtol = 1e-06,
+  boundstol = 1e-06,
+  resids_by_lm = FALSE,
   ...
 )
 }
@@ -94,7 +97,9 @@ as a first calibration step.}
 default.}
 
 \item{dropResid2}{When TRUE (default) and when no missing population totals
-- only one set of residuals in output.}
+\itemize{
+\item only one set of residuals in output.
+}}
 
 \item{wGrossOutput}{wGross in output when TRUE (default) and when NA
 popTotals.}
@@ -108,13 +113,27 @@ popTotals.}
 \item{allowNApopTotals}{When TRUE missing population totals are allowed.
 Results in error when FALSE and warning when NULL.}
 
-\item{partitionPrint}{When TRUE partition progress is printed. 
+\item{partitionPrint}{When TRUE partition progress is printed.
 Automatic decision when NULL (about 1 min total computing time).}
+
+\item{ginvtol}{Tolerance parameter for the generalized inverse used when
+\code{usePackage = "none"} and also for the computation of \code{resids}
+when \code{resids_by_lm = FALSE} and \code{leverageOutput = FALSE}. The default
+(\code{1e-06}) is chosen with robustness of the function in mind, beyond
+machine precision effects. A more standard value is \code{1.5e-08},
+similar to \code{ginv()} in the MASS package.}
+
+\item{boundstol}{Tolerance parameter used in iterations involving bounds
+when \code{usePackage = "none"}.}
+
+\item{resids_by_lm}{When \code{FALSE} (default) and \code{leverageOutput = FALSE},
+the computation of \code{resids} is based on a generalized inverse.
+Otherwise, the computations go via the \code{lm()} function.}
 
 \item{...}{Further arguments sent to underlying functions.}
 }
 \value{
-Unless onlyTotals or onlyw is TRUE, the output is an object of class calSSB. That is, a list with 
+Unless onlyTotals or onlyw is TRUE, the output is an object of class calSSB. That is, a list with
 elements: \item{popTotals}{Population totals.} \item{w}{The calibrated
 weights.} \item{wGross}{Calibrated gross sample weights when NA popTotals.}
 \item{estTM}{Estimates (with standard error).} \item{resids}{Residuals,
@@ -136,8 +155,8 @@ When popTotals as input is NULL, population totals are computed from popData
 missing (not allowed when using ReGenesees). When using "ReGenesees", both
 weiging and estimation are done by that package. When using "survey", only
 calibration weiging are done by that package.
-The parameters \code{wave}, \code{id} and \code{extra} have no effect on the 
-computations, but result in extra elements in output 
+The parameters \code{wave}, \code{id} and \code{extra} have no effect on the
+computations, but result in extra elements in output
 (to be used by WideFromCalibrate() later).
 }
 \examples{

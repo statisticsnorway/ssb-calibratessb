@@ -1,7 +1,7 @@
 
 
 ImpVekt = function(mBrutto,r,
-            totPop=dim(mBrutto)[1],N_brutto=TRUE,totPopReturn=FALSE,singularReturn=FALSE,ginvtol=1e-06,w=NULL)
+            totPop=dim(mBrutto)[1],N_brutto=TRUE,totPopReturn=FALSE,singularReturn=FALSE,ginvtol, w=NULL)
 {
   wGross = NULL
   if(singularReturn) totPopReturn=TRUE
@@ -65,7 +65,7 @@ glmR2ImpVekt = function(glmR,...)
 }
 
 
-ImpVektFixed = function(mNetto,totPop,wFixed=NULL,useginv=TRUE,ginvtol=1e-06)
+ImpVektFixed = function(mNetto,totPop,wFixed=NULL,useginv=TRUE,ginvtol)
 {
 
   if(useginv)
