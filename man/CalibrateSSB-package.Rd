@@ -33,6 +33,7 @@ Nonresponse}, John Wiley and Sons, New York.
 Useful links:
 \itemize{
   \item \url{https://github.com/statisticsnorway/ssb-calibratessb}
+  \item \url{https://statisticsnorway.github.io/ssb-calibratessb/}
   \item Report bugs at \url{https://github.com/statisticsnorway/ssb-calibratessb/issues}
 }
 
