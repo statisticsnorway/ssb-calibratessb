@@ -21,11 +21,15 @@
 #' 
 #' @encoding UTF8
 #' 
-#' @param grossSample Data frame.
+#' @param grossSample Input data, typically a data frame, tibble, or data.table. 
+#'                    If `grossSample` is not a classic data frame, 
+#'                    it will be coerced to one internally. 
 #' @param calmodel Formula defining the linear structure of the calibration
 #' model.
 #' @param response Variable name of response indicator (net sample when 1).
 #' @param popTotals Population totals (similar to population totals as output).
+#'                  If `popTotals` is not a classic data frame, 
+#'                  it will be coerced to one internally.              
 #' @param y Names of variables of interest. Can be a list similar to "by"
 #' below.
 #' @param by Names of the variables that define the "estimation domains". If
@@ -35,7 +39,9 @@
 #' domains" for the model. NULL (the default) implies no calibration domains.
 #' @param lRegmodel Formula defining the linear structure of a logistic
 #' regression model.
-#' @param popData Data frame of population data.
+#' @param popData Population data, typically a data frame, tibble, or data.table. 
+#'                If `popData` is not a classic data frame, 
+#'                it will be coerced to one internally. 
 #' @param samplingWeights Name of the variable with initial weights for the
 #' sampling units.
 #' @param usePackage Specifying the package to be used: "survey" (the default),
@@ -155,6 +161,17 @@ CalibrateSSB = function(grossSample,calmodel=NULL,response="R",popTotals=NULL,y=
                         boundstol = 1e-06,
                         resids_by_lm = FALSE, 
                         ...){
+  
+  grossSample <- as.data.frame(grossSample)
+  
+  if (!is.null(popData)) {
+    popData <- as.data.frame(popData)
+  }
+  
+  if (!is.null(popTotals)) {
+    popTotals <- as.data.frame(popTotals)
+  }
+  
   #if(hasArg("residOutput"))
   #  warning("residOutput is an old argument not in use")
   timeLimit = 60

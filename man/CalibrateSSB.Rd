@@ -41,14 +41,18 @@ CalibrateSSB(
 )
 }
 \arguments{
-\item{grossSample}{Data frame.}
+\item{grossSample}{Input data, typically a data frame, tibble, or data.table.
+If \code{grossSample} is not a classic data frame,
+it will be coerced to one internally.}
 
 \item{calmodel}{Formula defining the linear structure of the calibration
 model.}
 
 \item{response}{Variable name of response indicator (net sample when 1).}
 
-\item{popTotals}{Population totals (similar to population totals as output).}
+\item{popTotals}{Population totals (similar to population totals as output).
+If \code{popTotals} is not a classic data frame,
+it will be coerced to one internally.}
 
 \item{y}{Names of variables of interest. Can be a list similar to "by"
 below.}
@@ -63,7 +67,9 @@ domains" for the model. NULL (the default) implies no calibration domains.}
 \item{lRegmodel}{Formula defining the linear structure of a logistic
 regression model.}
 
-\item{popData}{Data frame of population data.}
+\item{popData}{Population data, typically a data frame, tibble, or data.table.
+If \code{popData} is not a classic data frame,
+it will be coerced to one internally.}
 
 \item{samplingWeights}{Name of the variable with initial weights for the
 sampling units.}
