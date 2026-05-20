@@ -9,7 +9,10 @@ lagVekter = function(
   totalReturn=0,
   maxiter=10,
   samplingWeights=NULL,
-  returnwGross=FALSE)
+  returnwGross=FALSE, 
+  ginvtol,
+  boundstol
+  )
 {
   z = brutto
 
@@ -52,7 +55,7 @@ lagVekter = function(
 
 
 
-  a = ImpVekt(x_model,r_model ,totPop=totPop,totPopReturn=TRUE,w=samplingWeights)
+  a = ImpVekt(x_model,r_model ,totPop=totPop,totPopReturn=TRUE,w=samplingWeights, ginvtol = ginvtol)
 
   w0=a$vekt
 
@@ -61,8 +64,8 @@ lagVekter = function(
   w = w0[r_model==1]
   x_netto = x_model[r_model==1,]
 
-  minw_eps = 1E-6 * max(min_w,1)
-  maxwPlusEps = (1+1E-6) * max_w   # Avoid Inf-Inf
+  minw_eps = boundstol * max(min_w,1)
+  maxwPlusEps = (1+boundstol) * max_w   # Avoid Inf-Inf
 
   fortsett = (sum(w<(min_w+minw_eps)|w>maxwPlusEps )>0)
   iter=0
@@ -74,7 +77,7 @@ lagVekter = function(
     wFixed[wFixed>min_w] = NA
     wFixed[w<min_w] = min_w
     wFixed[w>max_w] = max_w
-    w = ImpVektFixed(x_netto,totPop=a$totPop,wFixed=wFixed)
+    w = ImpVektFixed(x_netto,totPop=a$totPop,wFixed=wFixed, ginvtol = ginvtol)
 
     fortsett = (sum(w<(min_w-minw_eps)|w>maxwPlusEps )>0)
 

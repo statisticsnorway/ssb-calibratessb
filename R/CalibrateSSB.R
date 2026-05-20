@@ -21,11 +21,15 @@
 #' 
 #' @encoding UTF8
 #' 
-#' @param grossSample Data frame.
+#' @param grossSample Input data, typically a data frame, tibble, or data.table. 
+#'                    If `grossSample` is not a classic data frame, 
+#'                    it will be coerced to one internally. 
 #' @param calmodel Formula defining the linear structure of the calibration
 #' model.
 #' @param response Variable name of response indicator (net sample when 1).
 #' @param popTotals Population totals (similar to population totals as output).
+#'                  If `popTotals` is not a classic data frame, 
+#'                  it will be coerced to one internally.              
 #' @param y Names of variables of interest. Can be a list similar to "by"
 #' below.
 #' @param by Names of the variables that define the "estimation domains". If
@@ -35,7 +39,9 @@
 #' domains" for the model. NULL (the default) implies no calibration domains.
 #' @param lRegmodel Formula defining the linear structure of a logistic
 #' regression model.
-#' @param popData Data frame of population data.
+#' @param popData Population data, typically a data frame, tibble, or data.table. 
+#'                If `popData` is not a classic data frame, 
+#'                it will be coerced to one internally. 
 #' @param samplingWeights Name of the variable with initial weights for the
 #' sampling units.
 #' @param usePackage Specifying the package to be used: "survey" (the default),
@@ -66,6 +72,20 @@
 #' Results in error when FALSE and warning when NULL.
 #' @param partitionPrint When TRUE partition progress is printed. 
 #' Automatic decision when NULL (about 1 min total computing time).  
+#' 
+#' @param ginvtol Tolerance parameter for the generalized inverse used when
+#'   `usePackage = "none"` and also for the computation of `resids`
+#'   when `resids_by_lm = FALSE` and `leverageOutput = FALSE`. The default
+#'   (`1e-06`) is chosen with robustness of the function in mind, beyond
+#'   machine precision effects. A more standard value is `1.5e-08`,
+#'   similar to `ginv()` in the MASS package.
+#'   
+#' @param boundstol Tolerance parameter used in iterations involving bounds
+#'   when `usePackage = "none"`.
+#' 
+#' @param resids_by_lm When `FALSE` (default) and `leverageOutput = FALSE`, 
+#'   the computation of `resids` is based on a generalized inverse.
+#'   Otherwise, the computations go via the `lm()` function.
 #' 
 #' @param ... Further arguments sent to underlying functions.
 #' @return Unless onlyTotals or onlyw is TRUE, the output is an object of class calSSB. That is, a list with 
@@ -137,7 +157,21 @@ CalibrateSSB = function(grossSample,calmodel=NULL,response="R",popTotals=NULL,y=
                         extra=NULL,
                         allowNApopTotals = NULL,
                         partitionPrint = NULL,
+                        ginvtol = 1e-06,
+                        boundstol = 1e-06,
+                        resids_by_lm = FALSE, 
                         ...){
+  
+  grossSample <- as.data.frame(grossSample)
+  
+  if (!is.null(popData)) {
+    popData <- as.data.frame(popData)
+  }
+  
+  if (!is.null(popTotals)) {
+    popTotals <- as.data.frame(popTotals)
+  }
+  
   #if(hasArg("residOutput"))
   #  warning("residOutput is an old argument not in use")
   timeLimit = 60
@@ -195,7 +229,8 @@ CalibrateSSB = function(grossSample,calmodel=NULL,response="R",popTotals=NULL,y=
     retur$resids[R==1,] = resids
     #return(retur)
     if(yOutput) retur$y = grossSample[,y,drop=FALSE]
-    if(samplingWeightsOutput) retur$samplingWeights = samplingWeights
+    if(samplingWeightsOutput) 
+      retur$samplingWeights <- grossSample[, samplingWeights, drop = FALSE]
     
     #if(!residOutput | !yOutput)
     #  return(retur)
@@ -248,7 +283,11 @@ CalibrateSSB = function(grossSample,calmodel=NULL,response="R",popTotals=NULL,y=
   if(residOutput){
     e1 = NaN+grossSample[,y,drop=FALSE]
     e2=e1
-    etos = etos_e1_e2
+    if(resids_by_lm) {
+      etos = etos_e1_e2_by_lm_lmInfluence_FALSE
+    } else {
+      etos = etos_e1_e2 
+    }
     if(leverageOutput){
       h1=e1[,1]
       h2=h1
@@ -313,7 +352,8 @@ CalibrateSSB = function(grossSample,calmodel=NULL,response="R",popTotals=NULL,y=
     if(!onlyTotals & !(tolower(usePackage)=="nocalibration")){
       a = calibrateSSB(grossSample[rows,],calModel, popTotals[dim(popTotals)[1],],response=NULL,lRegModel,
                               popData=NULL,samplingW[rows],tolower(usePackage)=="survey",bounds=bounds,calfun= calfun, ##### "linear",
-                              totalReturn=0,uselRegWeights=uselRegWeights,...)
+                              totalReturn=0,uselRegWeights=uselRegWeights,
+                              ginvtol = ginvtol, boundstol = boundstol, ...)
       w[rows] = a$w
       if(wGrossOutput & !is.null(a$wGross))  wGross[rows] = a$wGross
     }
@@ -325,7 +365,8 @@ CalibrateSSB = function(grossSample,calmodel=NULL,response="R",popTotals=NULL,y=
       e1_e2=etos(xFromModel[rFromModel==1,],
                        data.matrix(grossSample[rowsNetto,y]),
                        is.finite(popTotals[dim(popTotals)[1],]),
-                       w=(samplingW[rowsNetto]))
+                       w=(samplingW[rowsNetto]),
+                       ginvtol = ginvtol)
       e1[rowsNetto,]=e1_e2$e1
       e2[rowsNetto,]=e1_e2$e2
       if(leverageOutput){
@@ -396,7 +437,8 @@ CalibrateSSB = function(grossSample,calmodel=NULL,response="R",popTotals=NULL,y=
     }
   }
   if(yOutput) retur$y = grossSample[,y,drop=FALSE]
-  if(samplingWeightsOutput) retur$samplingWeights = samplingWeights
+  if(samplingWeightsOutput) 
+    retur$samplingWeights <- grossSample[, samplingWeights, drop = FALSE]
   if(wGrossOutput) retur$wGross = wGross
   } ######## END NOT ReGenesees
   
@@ -702,7 +744,8 @@ calibrateSSB = function(grossSample,calModel=NULL,
                         popTotals=NULL,response=NULL,lRegModel=NULL,
                         popData=NULL,samplingWeights=NULL,
                         usePackageSurvey=TRUE,bounds=c(-Inf,Inf),calfun="linear",
-                        totalReturn=0,uselRegWeights=FALSE,...)                ### Merk: uselRegWeights=FALSE
+                        totalReturn=0,uselRegWeights=FALSE, ### Merk: uselRegWeights=FALSE
+                        ginvtol, boundstol, ...)         
 {
   n = NROW(grossSample)
 
@@ -742,7 +785,8 @@ calibrateSSB = function(grossSample,calModel=NULL,
       if(!(calfun=="linear")) stop("Method not implemented")
       if(!is.null(popTotals)) popData=popTotals
       a=lagVekter(calModel,grossSample,popData,min_w = bounds[1],
-                  max_w = bounds[2],totalReturn=totalReturn,samplingWeights=w,returnwGross=TRUE)
+                  max_w = bounds[2],totalReturn=totalReturn,samplingWeights=w,returnwGross=TRUE,
+                  ginvtol = ginvtol, boundstol = boundstol)
     }
   }
   a

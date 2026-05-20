@@ -4,3 +4,5 @@
 .Ruserdata
 ssb-calibratessb.Rproj
 docs
+*.bat
+

@@ -8,6 +8,8 @@ OrderedVarNames(x, sep = ":")
 }
 \arguments{
 \item{x}{input}
+
+\item{sep}{character string used to separate}
 }
 \value{
 output

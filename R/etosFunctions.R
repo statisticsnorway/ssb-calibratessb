@@ -23,7 +23,7 @@ etos_5.3.15 = function(N,n,g,e)
 #          Det legges til FALSE om vektoren er for kort
 #          Default er at bare N er kjent i populasjonen
 # w er designvekter
-etos_e1_e2 = function(mNetto,yMatrix,isTotPop=TRUE,ginvtol=1e-06,w=NULL)
+etos_e1_e2 = function(mNetto,yMatrix,isTotPop=TRUE,ginvtol,w=NULL)
 {
   inv = function(x) my_ginv(x,tol=ginvtol)
   if(is.null(w)) w = 1
@@ -44,7 +44,7 @@ etos_e1_e2 = function(mNetto,yMatrix,isTotPop=TRUE,ginvtol=1e-06,w=NULL)
 }
 
 
-etos_e1_e2_by_lm = function(mNetto,yMatrix,isTotPop=TRUE,lmInfluence=TRUE,w=NULL)
+etos_e1_e2_by_lm = function(mNetto,yMatrix,isTotPop=TRUE,lmInfluence=TRUE,w=NULL, ginvtol) # ginvtol not used 
 {
 
   isTotPop_input = isTotPop
@@ -67,6 +67,10 @@ etos_e1_e2_by_lm = function(mNetto,yMatrix,isTotPop=TRUE,lmInfluence=TRUE,w=NULL
     if(lmInfluence) a$h1 = lm.influence(m)$hat
   }
   a
+}
+
+etos_e1_e2_by_lm_lmInfluence_FALSE <- function(..., lmInfluence = FALSE) {
+  etos_e1_e2_by_lm(..., lmInfluence = lmInfluence)
 }
 
 
