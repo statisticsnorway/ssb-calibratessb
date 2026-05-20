@@ -35,6 +35,9 @@ CalibrateSSB(
   extra = NULL,
   allowNApopTotals = NULL,
   partitionPrint = NULL,
+  ginvtol = 1e-06,
+  boundstol = 1e-06,
+  resids_by_lm = FALSE,
   ...
 )
 ```
@@ -43,7 +46,9 @@ CalibrateSSB(
 
 - grossSample:
 
-  Data frame.
+  Input data, typically a data frame, tibble, or data.table. If
+  `grossSample` is not a classic data frame, it will be coerced to one
+  internally.
 
 - calmodel:
 
@@ -55,7 +60,9 @@ CalibrateSSB(
 
 - popTotals:
 
-  Population totals (similar to population totals as output).
+  Population totals (similar to population totals as output). If
+  `popTotals` is not a classic data frame, it will be coerced to one
+  internally.
 
 - y:
 
@@ -78,7 +85,9 @@ CalibrateSSB(
 
 - popData:
 
-  Data frame of population data.
+  Population data, typically a data frame, tibble, or data.table. If
+  `popData` is not a classic data frame, it will be coerced to one
+  internally.
 
 - samplingWeights:
 
@@ -135,8 +144,9 @@ CalibrateSSB(
 
 - dropResid2:
 
-  When TRUE (default) and when no missing population totals - only one
-  set of residuals in output.
+  When TRUE (default) and when no missing population totals
+
+  - only one set of residuals in output.
 
 - wGrossOutput:
 
@@ -163,6 +173,27 @@ CalibrateSSB(
 
   When TRUE partition progress is printed. Automatic decision when NULL
   (about 1 min total computing time).
+
+- ginvtol:
+
+  Tolerance parameter for the generalized inverse used when
+  `usePackage = "none"` and also for the computation of `resids` when
+  `resids_by_lm = FALSE` and `leverageOutput = FALSE`. The default
+  (`1e-06`) is chosen with robustness of the function in mind, beyond
+  machine precision effects. A more standard value is `1.5e-08`, similar
+  to `ginv()` in the MASS package.
+
+- boundstol:
+
+  Tolerance parameter used in iterations involving bounds when
+  `usePackage = "none"`.
+
+- resids_by_lm:
+
+  When `FALSE` (default) and `leverageOutput = FALSE`, the computation
+  of `resids` is based on a generalized inverse. Otherwise, the
+  computations go via the [`lm()`](https://rdrr.io/r/stats/lm.html)
+  function.
 
 - ...:
 

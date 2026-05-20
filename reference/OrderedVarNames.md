@@ -14,6 +14,10 @@ OrderedVarNames(x, sep = ":")
 
   input
 
+- sep:
+
+  character string used to separate
+
 ## Value
 
 output

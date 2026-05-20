@@ -34,3 +34,13 @@ Useful links:
 
 - Report bugs at
   <https://github.com/statisticsnorway/ssb-calibratessb/issues>
+
+## Author
+
+**Maintainer**: Øyvind Langsrud <oyl@ssb.no>
+([ORCID](https://orcid.org/0000-0002-1380-4396))
+
+Authors:
+
+- Øyvind Langsrud <oyl@ssb.no>
+  ([ORCID](https://orcid.org/0000-0002-1380-4396))

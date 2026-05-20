@@ -71,6 +71,9 @@ residuals</p>
 <span>  extra <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  allowNApopTotals <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  partitionPrint <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ginvtol <span class="op">=</span> <span class="fl">1e-06</span>,</span>
+<span>  boundstol <span class="op">=</span> <span class="fl">1e-06</span>,</span>
+<span>  resids_by_lm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -80,7 +83,9 @@ residuals</p>
 
 
 <dl><dt id="arg-grosssample">grossSample<a class="anchor" aria-label="anchor" href="#arg-grosssample"></a></dt>
-<dd><p>Data frame.</p></dd>
+<dd><p>Input data, typically a data frame, tibble, or data.table.
+If <code>grossSample</code> is not a classic data frame,
+it will be coerced to one internally.</p></dd>
 
 
 <dt id="arg-calmodel">calmodel<a class="anchor" aria-label="anchor" href="#arg-calmodel"></a></dt>
@@ -93,7 +98,9 @@ model.</p></dd>
 
 
 <dt id="arg-poptotals">popTotals<a class="anchor" aria-label="anchor" href="#arg-poptotals"></a></dt>
-<dd><p>Population totals (similar to population totals as output).</p></dd>
+<dd><p>Population totals (similar to population totals as output).
+If <code>popTotals</code> is not a classic data frame,
+it will be coerced to one internally.</p></dd>
 
 
 <dt id="arg-y">y<a class="anchor" aria-label="anchor" href="#arg-y"></a></dt>
@@ -118,7 +125,9 @@ regression model.</p></dd>
 
 
 <dt id="arg-popdata">popData<a class="anchor" aria-label="anchor" href="#arg-popdata"></a></dt>
-<dd><p>Data frame of population data.</p></dd>
+<dd><p>Population data, typically a data frame, tibble, or data.table.
+If <code>popData</code> is not a classic data frame,
+it will be coerced to one internally.</p></dd>
 
 
 <dt id="arg-samplingweights">samplingWeights<a class="anchor" aria-label="anchor" href="#arg-samplingweights"></a></dt>
@@ -177,8 +186,8 @@ default.</p></dd>
 
 
 <dt id="arg-dropresid-">dropResid2<a class="anchor" aria-label="anchor" href="#arg-dropresid-"></a></dt>
-<dd><p>When TRUE (default) and when no missing population totals
-- only one set of residuals in output.</p></dd>
+<dd><p>When TRUE (default) and when no missing population totals</p><ul><li><p>only one set of residuals in output.</p></li>
+</ul></dd>
 
 
 <dt id="arg-wgrossoutput">wGrossOutput<a class="anchor" aria-label="anchor" href="#arg-wgrossoutput"></a></dt>
@@ -206,6 +215,26 @@ Results in error when FALSE and warning when NULL.</p></dd>
 <dt id="arg-partitionprint">partitionPrint<a class="anchor" aria-label="anchor" href="#arg-partitionprint"></a></dt>
 <dd><p>When TRUE partition progress is printed.
 Automatic decision when NULL (about 1 min total computing time).</p></dd>
+
+
+<dt id="arg-ginvtol">ginvtol<a class="anchor" aria-label="anchor" href="#arg-ginvtol"></a></dt>
+<dd><p>Tolerance parameter for the generalized inverse used when
+<code>usePackage = "none"</code> and also for the computation of <code>resids</code>
+when <code>resids_by_lm = FALSE</code> and <code>leverageOutput = FALSE</code>. The default
+(<code>1e-06</code>) is chosen with robustness of the function in mind, beyond
+machine precision effects. A more standard value is <code>1.5e-08</code>,
+similar to <code>ginv()</code> in the MASS package.</p></dd>
+
+
+<dt id="arg-boundstol">boundstol<a class="anchor" aria-label="anchor" href="#arg-boundstol"></a></dt>
+<dd><p>Tolerance parameter used in iterations involving bounds
+when <code>usePackage = "none"</code>.</p></dd>
+
+
+<dt id="arg-resids-by-lm">resids_by_lm<a class="anchor" aria-label="anchor" href="#arg-resids-by-lm"></a></dt>
+<dd><p>When <code>FALSE</code> (default) and <code>leverageOutput = FALSE</code>,
+the computation of <code>resids</code> is based on a generalized inverse.
+Otherwise, the computations go via the <code><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm()</a></code> function.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -378,7 +407,7 @@ computations, but result in extra elements in output
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Oyvind Langsrud.</p>
+  <p>Developed by Øyvind Langsrud.</p>
 </div>
 
 <div class="pkgdown-footer-right">

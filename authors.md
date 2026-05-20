@@ -2,7 +2,8 @@
 
 ## Authors
 
-- **Oyvind Langsrud**. Maintainer.
+- **Øyvind Langsrud**. Author, maintainer.
+  [](https://orcid.org/0000-0002-1380-4396)
 
 ## Citation
 
