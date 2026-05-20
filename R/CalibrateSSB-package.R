@@ -14,7 +14,6 @@
 #' waves. \cr
 #' 
 #' @name CalibrateSSB-package
-#' @docType package
 #' 
 #' @references Langsrud, Ø (2016): \dQuote{A variance estimation R-package for
 #' repeated surveys - useful for estimates of changes in quarterly and annual
@@ -26,4 +25,4 @@
 #' Nonresponse}, John Wiley and Sons, New York.
 #' @keywords calibration
 #' @encoding UTF8
-NULL
+"_PACKAGE"
