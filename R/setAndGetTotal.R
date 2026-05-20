@@ -4,7 +4,7 @@
 #' OrderedVarNames
 #'
 #' @param x input 
-#' @param sep 
+#' @param sep character string used to separate
 #'
 #' @return output
 #' @keywords internal
