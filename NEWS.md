@@ -1,5 +1,6 @@
 ## CalibrateSSB 1.4.0
-
+* New pkgdown website for the package  
+  - This package now has a documentation site at [https://statisticsnorway.github.io/ssb-calibratessb/](https://statisticsnorway.github.io/ssb-calibratessb/).
 * New parameters to `CalibrateSSB()`: `ginvtol`, `boundstol` and `resids_by_lm`
   - Control of robustness and precision in regression computations.
 * Support for tibble and data.table input to `CalibrateSSB()` (`grossSample`, `popData` and `popTotals`)
