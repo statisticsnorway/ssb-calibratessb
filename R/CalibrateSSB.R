@@ -229,7 +229,8 @@ CalibrateSSB = function(grossSample,calmodel=NULL,response="R",popTotals=NULL,y=
     retur$resids[R==1,] = resids
     #return(retur)
     if(yOutput) retur$y = grossSample[,y,drop=FALSE]
-    if(samplingWeightsOutput) retur$samplingWeights = samplingWeights
+    if(samplingWeightsOutput) 
+      retur$samplingWeights <- grossSample[, samplingWeights, drop = FALSE]
     
     #if(!residOutput | !yOutput)
     #  return(retur)
@@ -436,7 +437,8 @@ CalibrateSSB = function(grossSample,calmodel=NULL,response="R",popTotals=NULL,y=
     }
   }
   if(yOutput) retur$y = grossSample[,y,drop=FALSE]
-  if(samplingWeightsOutput) retur$samplingWeights = samplingWeights
+  if(samplingWeightsOutput) 
+    retur$samplingWeights <- grossSample[, samplingWeights, drop = FALSE]
   if(wGrossOutput) retur$wGross = wGross
   } ######## END NOT ReGenesees
   
