@@ -2,6 +2,8 @@
 
 ## CalibrateSSB 1.4.0
 
+CRAN release: 2026-05-21
+
 - New pkgdown website for the package
   - This package now has a documentation site at
     <https://statisticsnorway.github.io/ssb-calibratessb/>.

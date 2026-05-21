@@ -11,13 +11,13 @@ Source:
 [`DESCRIPTION`](https://github.com/statisticsnorway/ssb-calibratessb/blob/master/DESCRIPTION)
 
 Langsrud Ø (2026). *CalibrateSSB: Weighting and Estimation for Panel
-Data with Non-Response*. R package version 1.3.1,
+Data with Non-Response*. R package version 1.4.0,
 <https://github.com/statisticsnorway/ssb-calibratessb>.
 
     @Manual{,
       title = {CalibrateSSB: Weighting and Estimation for Panel Data with Non-Response},
       author = {Øyvind Langsrud},
       year = {2026},
-      note = {R package version 1.3.1},
+      note = {R package version 1.4.0},
       url = {https://github.com/statisticsnorway/ssb-calibratessb},
     }
