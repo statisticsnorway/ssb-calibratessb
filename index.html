@@ -49,84 +49,73 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="r-package-calibratessb">R package CalibrateSSB<a class="anchor" aria-label="anchor" href="#r-package-calibratessb"></a>
 </h1></div>
-<p><a href="http://www.awesomeofficialstatistics.org" class="external-link"><img src="https://awesome.re/mentioned-badge.svg" alt="Mentioned in Awesome Official Statistics"></a></p>
-<p>Weighting and Estimation for Panel Data with Non-Response</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span>                               <span class="co"># Load package containing install_github</span></span>
-<span><span class="fu">install_github</span><span class="op">(</span><span class="st">"statisticsnorway/ssb-calibratessb"</span><span class="op">)</span> <span class="co"># Install CalibrateSSB from GitHub</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/statisticsnorway/ssb-calibratessb" class="external-link">CalibrateSSB</a></span><span class="op">)</span>                           <span class="co"># Load CalibrateSSB</span></span>
-<span><span class="op">?</span><span class="va">CalibrateSSB</span>                                   <span class="co"># Help documentation of function CalibrateSSB</span></span>
-<span><span class="op">?</span><span class="va">PanelEstimation</span>                                <span class="co"># Help documentation of function PanelEstimation</span></span></code></pre></div>
 <table class="table">
 <colgroup>
-<col width="31%">
-<col width="68%">
+<col width="30%">
+<col width="4%">
+<col width="30%">
+<col width="4%">
+<col width="30%">
 </colgroup>
 <thead><tr>
-<th>Function</th>
+<th><a href="https://cran.r-project.org/package=CalibrateSSB" class="external-link">CalibrateSSB on CRAN</a></th>
 <th></th>
+<th><a href="https://statisticsnorway.github.io/ssb-calibratessb/">pkgdown website</a></th>
+<th></th>
+<th><a href="https://github.com/statisticsnorway/ssb-calibratessb" class="external-link">GitHub Repository</a></th>
 </tr></thead>
+<tbody></tbody>
+</table>
+<hr>
+<p><a href="http://www.awesomeofficialstatistics.org" class="external-link"><img src="https://awesome.re/mentioned-badge.svg" alt="Mentioned in Awesome Official Statistics"></a></p>
+<div class="section level3">
+<h3 id="weighting-and-estimation-for-panel-data-with-non-response">Weighting and Estimation for Panel Data with Non-Response<a class="anchor" aria-label="anchor" href="#weighting-and-estimation-for-panel-data-with-non-response"></a>
+</h3>
+<hr>
+</div>
+<div class="section level3">
+<h3 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h3>
+<p>You can install SSBtools from CRAN with</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"CalibrateSSB"</span><span class="op">)</span></span></code></pre></div>
+<hr>
+</div>
+<div class="section level3">
+<h3 id="some-of-the-functions">Some of the functions<a class="anchor" aria-label="anchor" href="#some-of-the-functions"></a>
+</h3>
+<table class="table">
+<colgroup>
+<col width="17%">
+<col width="82%">
+</colgroup>
 <tbody>
 <tr>
-<td>AkuData</td>
+<td><a href="https://statisticsnorway.github.io/ssb-calibratessb/reference/AkuData.html">AkuData()</a></td>
 <td>Generate test data</td>
 </tr>
 <tr>
-<td>CalibrateSSB</td>
+<td><a href="https://statisticsnorway.github.io/ssb-calibratessb/reference/CalibrateSSB.html">CalibrateSSB()</a></td>
 <td>Calibration weighting and estimation</td>
 </tr>
 <tr>
-<td>CalibrateSSBpanel</td>
-<td>Calibration weighting and variance estimation for panel data</td>
-</tr>
-<tr>
-<td>CalSSBobj</td>
-<td>Create or modify a CalSSB object</td>
-</tr>
-<tr>
-<td>CalSSBobjReGenesees</td>
-<td>Create a CalSSB object from a ReGenesees/cal.analytic object</td>
-</tr>
-<tr>
-<td>CrossStrata</td>
-<td>Crossing several factor variables</td>
-</tr>
-<tr>
-<td>LagDiff</td>
-<td>Creation of linear combination matrices</td>
-</tr>
-<tr>
-<td>LinCombMatrix</td>
-<td>Creation of linear combination matrices</td>
-</tr>
-<tr>
-<td>PanelEstimation</td>
+<td><a href="https://statisticsnorway.github.io/ssb-calibratessb/reference/PanelEstimation.html">PanelEstimation()</a></td>
 <td>Variance estimation for panel data</td>
-</tr>
-<tr>
-<td>Period</td>
-<td>Creation of linear combination matrices</td>
-</tr>
-<tr>
-<td>PeriodDiff</td>
-<td>Creation of linear combination matrices</td>
-</tr>
-<tr>
-<td>WideFromCalibrate</td>
-<td>Rearrange output from CalibrateSSB (calSSB object). Ready for input to PanelEstimation.</td>
 </tr>
 </tbody>
 </table>
+<p>📌 See the <a href="https://statisticsnorway.github.io/ssb-calibratessb/reference/index.html">broader list of available functions</a>.</p>
 <hr>
-<div class="section level4">
-<h4 id="description">Description<a class="anchor" aria-label="anchor" href="#description"></a>
-</h4>
+</div>
+<div class="section level3">
+<h3 id="description">Description<a class="anchor" aria-label="anchor" href="#description"></a>
+</h3>
 <p>CalibrateSSB is an R-package that handles repeated surveys with partially overlapping samples. Initially the samples are weighted by linear calibration using known or estimated population totals. A robust model based covariance matrix for all relevant estimated totals is calculated from the residuals according to the calibration model. Alternatively a design based covariance matrix is calculated in a very similar way. A cluster robust version is also possible. In the case of estimated populations totals the covariance matrix is adjusted by utilizing the theory of Särndal and Lundström (2005). Variances of linear combinations (changes and averages) and ratios are calculated from this covariance matrix. The linear combinations and ratios can involve variables within and/or between sample waves.</p>
 </div>
-<div class="section level4">
-<h4 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
-</h4>
-<p>Langsrud, Ø (2016): “A variance estimation R-package for repeated surveys - useful for estimates of changes in quarterly and annual averages”, Romanian Statistical Review nr. 2 / 2016, pp. 17-28. CONFERENCE: New Challenges for Statistical Software - The Use of R in Official Statistics, Bucharest, Romania, 7-8 April.</p>
+<div class="section level3">
+<h3 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h3>
+<p>Langsrud, Ø (2016): “A variance estimation R-package for repeated surveys - useful for estimates of changes in quarterly and annual averages”, Romanian Statistical Review nr. 2 / 2016, pp. 17-28. CONFERENCE: New Challenges for Statistical Software - The Use of R in Official Statistics, Bucharest, Romania, 7-8 April. <a href="https://www.revistadestatistica.ro/wp-content/uploads/2016/06/RRS2_2016_A021.pdf" class="external-link">https://www.revistadestatistica.ro/wp-content/uploads/2016/06/RRS2_2016_A021.pdf</a></p>
 <p>Särndal, C.-E. and Lundström, S. (2005): Estimation in Surveys with Nonresponse, John Wiley and Sons, New York.</p>
 </div>
 </div>
